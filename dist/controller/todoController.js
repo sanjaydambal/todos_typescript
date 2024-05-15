@@ -63,8 +63,10 @@ exports.addTodo = addTodo;
 const updateTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
+        console.log(id);
         const { title, description } = req.body;
-        const updatedTodo = yield todoService.updateTodo(id, { title, description });
+        const updatedTodo = yield todoService.updateTodo(parseInt(id), { title, description });
+        console.log(updateTodo);
         if (!updatedTodo) {
             return res.status(404).json({ error: 'Todo not found' });
         }

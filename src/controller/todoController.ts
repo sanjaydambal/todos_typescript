@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import * as todoService from '../service/todoService';
+import { TodoInterface,AddTodoInterface } from '../models/todoInterface';
 
 const getAllTodos = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const todos: any[] = await todoService.getAllTodos();
+        const todos: TodoInterface[] = await todoService.getAllTodos();
         return res.status(200).json(todos);
     } catch (error) {
         console.error('Error getting todos:', error);
@@ -13,11 +14,11 @@ const getAllTodos = async (req: Request, res: Response): Promise<Response> => {
 
 const addTodo = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { title, description }: { title: string, description?: string } = req.body;
+        const { title, description }: AddTodoInterface = req.body;
         if (!title) {
             return res.status(400).json({ error: 'Title is required' });
         }
-        const newTodo: any = await todoService.addTodo({ title, description });
+        const newTodo: TodoInterface = await todoService.addTodo({ title, description });
         return res.status(201).json(newTodo);
     } catch (error) {
         console.error('Error adding todo:', error);
@@ -29,8 +30,8 @@ const updateTodo = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { id } = req.params;
         console.log(id)
-        const { title, description }: { title?: string, description?: string } = req.body;
-        const updatedTodo: any | null = await todoService.updateTodo(parseInt(id), { title, description });
+        const { title, description }: AddTodoInterface = req.body;
+        const updatedTodo: TodoInterface | null = await todoService.updateTodo(parseInt(id), { title, description });
         console.log(updateTodo)
         if (!updatedTodo) {
             return res.status(404).json({ error: 'Todo not found' });
