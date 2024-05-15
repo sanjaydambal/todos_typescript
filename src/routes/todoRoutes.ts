@@ -1,5 +1,5 @@
 import express from 'express';
-import {getAllTodos,addTodo,updateTodo,deleteTodo} from '../controller/todoController';
+import { getAllTodos, addTodo, updateTodo, deleteTodo } from '../controller/todoController';
 
 const router = express.Router();
 

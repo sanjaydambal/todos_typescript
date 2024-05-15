@@ -14,11 +14,11 @@ const getAllTodos = async (req: Request, res: Response): Promise<Response> => {
 
 const addTodo = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { title, description }: AddTodoInterface = req.body;
+        const { title, description,completed }: AddTodoInterface = req.body;
         if (!title) {
             return res.status(400).json({ error: 'Title is required' });
         }
-        const newTodo: TodoInterface = await todoService.addTodo({ title, description });
+        const newTodo: TodoInterface = await todoService.addTodo({ title, description,completed });
         return res.status(201).json(newTodo);
     } catch (error) {
         console.error('Error adding todo:', error);
@@ -30,8 +30,8 @@ const updateTodo = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { id } = req.params;
         console.log(id)
-        const { title, description }: AddTodoInterface = req.body;
-        const updatedTodo: TodoInterface | null = await todoService.updateTodo(parseInt(id), { title, description });
+        const { title, description,completed }: AddTodoInterface = req.body;
+        const updatedTodo: TodoInterface | null = await todoService.updateTodo(parseInt(id), { title, description,completed });
         console.log(updateTodo)
         if (!updatedTodo) {
             return res.status(404).json({ error: 'Todo not found' });
