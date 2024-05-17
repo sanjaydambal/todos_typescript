@@ -41,10 +41,10 @@ const updateTodo = async (id: number, todo: AddTodoInterface): Promise<TodoInter
         const updatedTodoQueryResult: QueryResult = await pool.query(todoQueries.updateTodo, [
             title,
             description,
-            todoId,
-            completed
+            completed,
+            todoId
         ]);
-
+       
         if (updatedTodoQueryResult.rows.length === 0) {
             // Handle case where todo with given ID is not found
             throw new Error('Todo not found');
